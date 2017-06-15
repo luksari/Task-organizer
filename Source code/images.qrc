@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>images/checked-pressed.png</file>
+        <file>images/logo-small-01.png</file>
+        <file>images/checked-hovered.png</file>
+        <file>images/Checked-unhovered.png</file>
+        <file>images/unchecked-hovered.png</file>
+        <file>images/unchecked-pressed.png</file>
+        <file>images/unchecked-unhovered.png</file>
+        <file>images/Add.png</file>
+        <file>images/Edit.png</file>
+        <file>images/Logo.png</file>
+        <file>images/Remove.png</file>
+    </qresource>
+</RCC>
