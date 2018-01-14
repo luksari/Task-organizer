@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -27,12 +27,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     singletask.cpp \
     tasklist.cpp \
-    tasklistcontroller.cpp
+    tasklistcontroller.cpp \
+    dbmanager.cpp
 
 HEADERS  += mainwindow.h \
     singletask.h \
     tasklist.h \
-    tasklistcontroller.h
+    tasklistcontroller.h \
+    dbmanager.h
 
 FORMS    += mainwindow.ui
 

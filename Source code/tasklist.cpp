@@ -1,4 +1,5 @@
-#include "tasklist.h"
+﻿#include "tasklist.h"
+#include "dbmanager.h"
 
 
 TaskList::TaskList(QObject *parent) : QObject(parent)
@@ -9,7 +10,6 @@ TaskList::TaskList(QObject *parent) : QObject(parent)
 TaskList::Tasks TaskList::tasks() const
 {
   return m_tasks;
-
 }
 
 SingleTask *TaskList::createTask()
@@ -31,7 +31,6 @@ bool TaskList::deleteTask(SingleTask *task)
         m_tasks.removeOne( task );
         delete task;
         return true;
-
     }
     return false;
 }

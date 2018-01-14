@@ -1,10 +1,12 @@
-#ifndef TASKLIST_H
+﻿#ifndef TASKLIST_H
 #define TASKLIST_H
 
 #include "singletask.h"
+#include "dbmanager.h"
 
 #include <QObject>
 #include <QList>
+#include "dbmanager.h"
 
 class TaskList : public QObject
 {
@@ -18,7 +20,7 @@ public:
     Tasks tasks() const; //Metoda getter
 
     SingleTask *createTask(); //Tworzenie zadania
-    bool deleteTask( SingleTask *task ); //Usuwanie zadania
+    bool deleteTask( SingleTask *task); //Usuwanie zadania
 
     int countTasks();
     int countDoneTasks(SingleTask *task);
@@ -39,6 +41,7 @@ private:
 
     Tasks m_tasks; //Prywatny obiekt typu Tasks
     int m_taskDoneCounter = 0;
+
 
 
 

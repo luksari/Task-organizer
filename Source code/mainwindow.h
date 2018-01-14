@@ -1,7 +1,8 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include "tasklistcontroller.h"
+#include "dbmanager.h"
 
 #include <QMainWindow>
 #include <QHash>
@@ -20,7 +21,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(TaskListController *controller, QWidget *parent = 0);
+    explicit MainWindow(TaskListController *controller, dbManager *db, QWidget *parent = 0);
     ~MainWindow();
 
 public slots:
@@ -37,6 +38,7 @@ public slots:
 private:
     Ui::MainWindow *ui;
     TaskListController *m_controller;
+    dbManager *m_db;
     QHash<QListWidgetItem*, SingleTask*> m_taskMap;
     void setupConnections();
 

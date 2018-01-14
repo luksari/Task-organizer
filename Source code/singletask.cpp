@@ -1,4 +1,4 @@
- #include "singletask.h"
+﻿ #include "singletask.h"
 
 SingleTask::SingleTask(QObject *parent) : QObject(parent)
 {
@@ -75,4 +75,17 @@ bool SingleTask::changed() const
 void SingleTask::setChanged(bool changed)
 {
     m_changed = changed;
+}
+
+int SingleTask::id() const
+{
+    return m_id;
+}
+
+void SingleTask::setId(int id)
+{
+    if(m_id != id){
+        m_id = id;
+        emit idChanged();
+    }
 }

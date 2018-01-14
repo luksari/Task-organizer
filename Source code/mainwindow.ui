@@ -370,7 +370,7 @@ background-color: #58e2b2;
        <enum>QFrame::Plain</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="listPage">
        <layout class="QGridLayout" name="gridLayout">
@@ -636,7 +636,7 @@ background-color: #58e2b2;
      <x>0</x>
      <y>0</y>
      <width>494</width>
-     <height>17</height>
+     <height>16</height>
     </rect>
    </property>
    <property name="defaultUp">

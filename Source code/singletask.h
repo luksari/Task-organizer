@@ -1,10 +1,10 @@
-#ifndef SINGLETASK_H
+﻿#ifndef SINGLETASK_H
 #define SINGLETASK_H
 
 #include <QObject>
 #include <QString>
 #include <QDate>
-#include<QDebug>
+#include "dbmanager.h"
 
 class SingleTask : public QObject
 {
@@ -32,23 +32,29 @@ public:
     bool changed() const;
     void setChanged(bool changed);
 
+    int id() const;
+    void setId(int id);
+
 signals:
 
     void nameChanged();
     void descriptionChanged();
     void deadlineChanged();
     void isDoneChanged();
+    void idChanged();
 
 public slots:
 
 
 private:
 
+    int m_id;
     QString m_name;
     QString m_description;
     QDate m_deadline;
     bool m_isDone=false;
     bool m_changed=false;
+    dbManager *m_db;
 };
 
 #endif // SINGLETASK_H

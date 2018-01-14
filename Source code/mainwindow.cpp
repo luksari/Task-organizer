@@ -1,18 +1,19 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 
 
-MainWindow::MainWindow(TaskListController *controller, QWidget *parent):
+MainWindow::MainWindow(TaskListController *controller, dbManager *db, QWidget *parent):
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_controller(controller)
+    m_controller(controller),
+    m_db(db)
 {
     Q_ASSERT(controller != nullptr);
+    Q_ASSERT(db != nullptr);
     ui->setupUi(this);
     ui->stackedWidget->setCurrentWidget(ui->listPage);
     setupConnections();
-
 
 }
 
@@ -43,6 +44,7 @@ void MainWindow::deleteTask()
                     countDoneTasksDeleted();
 
                 }
+                m_db->removeTask(task->id());
                 m_taskMap.remove(listItem);
                 delete listItem;
             }
@@ -70,11 +72,22 @@ void MainWindow::saveTask()
         auto task = m_taskMap.value(listItem);
 
         if(task){
-           task->setName(ui->titleEdit->text());
-           task->setDeadline(ui->deadlineEdit->date());
-           task->setDescription(ui->descriptionEdit->toPlainText());
-           task->setIsDone(ui->isDoneEdit->isChecked());
-           listItem->setText(task->name());
+           auto name = ui->titleEdit->text();
+           auto deadline = ui->deadlineEdit->date();
+           auto description = ui->descriptionEdit->toPlainText();
+           auto isDone = ui->isDoneEdit->isChecked();
+           auto id = ui->listWidget->currentRow();
+           task->setName(name);
+           task->setDeadline(deadline);
+           task->setDescription(description);
+           task->setIsDone(isDone);
+           task->setId(id);
+           listItem->setText(name);
+
+           /*DB SEGMENT*/
+           m_db->addTask(id, name, description, deadline, isDone);
+           m_db->printAllTasks();
+
            if((task->isDone())==true)
            {
                listItem->setBackgroundColor(QColor::fromRgb(88, 226, 178));
@@ -83,9 +96,7 @@ void MainWindow::saveTask()
            {
                listItem->setBackgroundColor(Qt::transparent);
            }
-
            discardTask();
-
         }
     }
 }

@@ -1,14 +1,19 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include <QApplication>
+#include "dbmanager.h"
+
+static const QString path = "tasks.db";
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    dbManager db(path);
+    db.createTable();
     TaskList taskList;
-    TaskListController controller( &taskList);
-    MainWindow w(&controller);
+    TaskListController controller(&taskList, &db);
+    MainWindow w(&controller, &db);
     w.show();
-    a.setWindowIcon(QIcon("./images/Logo.png"));
+
 
     return a.exec();
 }
