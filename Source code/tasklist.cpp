@@ -11,10 +11,9 @@ TaskList::Tasks TaskList::tasks() const
 {
   return m_tasks;
 }
-
 SingleTask *TaskList::createTask()
 {
-    auto result = new SingleTask( this );
+    auto result = new SingleTask( this);
     if(result != nullptr){
 
         m_tasks.append( result );

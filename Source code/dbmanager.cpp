@@ -77,7 +77,35 @@ bool dbManager::addTask(const int id, const QString name, const QString descript
 
     return success;
 }
+bool dbManager::updateTask(const int id, const QString name, const QString description, const QDate deadline, const bool isdone)
+{
+    bool success = false;
+    if (!name.isNull() && !description.isNull() && !deadline.isNull())
+    {
+        QSqlQuery queryUpdate;
+        queryUpdate.prepare("UPDATE tasks SET name=:name, description=:description, deadline=:deadline, isdone=:isdone WHERE id=:id");
+        queryUpdate.bindValue(":id", id);
+        queryUpdate.bindValue(":name", name);
+        queryUpdate.bindValue(":description", description);
+        queryUpdate.bindValue(":deadline", deadline);
+        queryUpdate.bindValue(":isdone", isdone);
+        if(queryUpdate.exec())
+        {
+            success = true;
+        }
+        else
+        {
+            qDebug() << "update task failed: " << queryUpdate.lastError();
+        }
+    }
+    else
+    {
+        qDebug() << "update tasks failed: args cannot be empty";
+    }
 
+    return success;
+
+}
 bool dbManager::removeTask(const int id)
 {
     bool success = false;
@@ -158,23 +186,8 @@ bool dbManager::removeAllTasks()
 
     return success;
 }
-//int dbManager::getId(const QString &name){
+//bool dbManager::loadTask()
+//{
 
-
-//    QSqlQuery getQuery;
-//    getQuery.prepare("SELECT id FROM tasks WHERE name = (:name)");
-//    getQuery.bindValue(":name", name);
-//    if (getQuery.exec())
-//    {
-//        int idID = getQuery.record().indexOf("id");
-//        int newId = getQuery.value(idID).toInt();
-//        return newId;
-//    }
-//    else
-//    {
-//        qDebug() << "get id of task failed: " << getQuery.lastError();
-//    }
-//    return -1;
 
 //}
-

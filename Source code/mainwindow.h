@@ -10,11 +10,14 @@
 #include <QPushButton>
 #include <QWidget>
 
+
 namespace Ui {
 class MainWindow;
 }
 
 class QListWidgetItem;
+class QSqlTableModel;
+
 
 class MainWindow : public QMainWindow
 {
@@ -34,6 +37,7 @@ public slots:
     void countDoneTasks();
     void countDoneTasksDeleted();
     void countTasks();
+    void loadTasks();
 
 private:
     Ui::MainWindow *ui;

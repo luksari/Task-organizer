@@ -6,7 +6,6 @@
 
 #include <QObject>
 #include <QList>
-#include "dbmanager.h"
 
 class TaskList : public QObject
 {

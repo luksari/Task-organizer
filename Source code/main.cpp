@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     dbManager db(path);
     db.createTable();
     TaskList taskList;
-    TaskListController controller(&taskList, &db);
+    TaskListController controller(&taskList);
     MainWindow w(&controller, &db);
     w.show();
 

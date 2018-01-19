@@ -1,5 +1,7 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QDebug>
+#include <QSqlError>
 
 
 
@@ -13,15 +15,14 @@ MainWindow::MainWindow(TaskListController *controller, dbManager *db, QWidget *p
     Q_ASSERT(db != nullptr);
     ui->setupUi(this);
     ui->stackedWidget->setCurrentWidget(ui->listPage);
+    loadTasks();
     setupConnections();
-
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-
 void MainWindow::createTask()
 {
     auto task = m_controller->createTask();
@@ -31,7 +32,6 @@ void MainWindow::createTask()
         m_taskMap.insert(listItem, task);
     }
 }
-
 void MainWindow::deleteTask()
 {
     auto listItem = ui->listWidget->currentItem();
@@ -85,7 +85,10 @@ void MainWindow::saveTask()
            listItem->setText(name);
 
            /*DB SEGMENT*/
-           m_db->addTask(id, name, description, deadline, isDone);
+           if(!(m_db->taskExists(id)))
+            m_db->addTask(id, name, description, deadline, isDone);
+           else
+            m_db->updateTask(id, name, description, deadline, isDone);
            m_db->printAllTasks();
 
            if((task->isDone())==true)
@@ -157,7 +160,15 @@ void MainWindow::countTasks()
 
                 ui->progressBar->setMaximum(m_controller->countTasks());
               }
-         }
+    }
+}
+
+void MainWindow::loadTasks()
+{
+    QSqlQueryModel *model = new QSqlQueryModel();
+    model->setQuery("SELECT name FROM tasks");
+    qDebug() << model->lastError();
+    ui->listView->setModel(model);
 }
 
 void MainWindow::setupConnections()

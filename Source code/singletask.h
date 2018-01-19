@@ -10,6 +10,7 @@ class SingleTask : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(int id READ id WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
     Q_PROPERTY(QDate deadline READ deadline WRITE setDeadline NOTIFY deadlineChanged)
     Q_PROPERTY(bool isDone READ isDone WRITE setIsDone NOTIFY isDoneChanged)
@@ -54,7 +55,7 @@ private:
     QDate m_deadline;
     bool m_isDone=false;
     bool m_changed=false;
-    dbManager *m_db;
+
 };
 
 #endif // SINGLETASK_H
